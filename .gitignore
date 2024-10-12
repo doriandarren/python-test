@@ -1,0 +1,39 @@
+# Archivos de Python
+__pycache__/
+*.py[cod]
+
+# Archivos de Pygame
+*.wav
+*.mp3
+
+# Archivos del entorno virtual
+env/
+venv/
+ENV/
+*.venv/
+*.env/
+
+# Archivos de configuración del entorno
+.Python
+*.swp
+*.swo
+*.bak
+
+# Archivos de logs
+*.log
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de PyCharm o VSCode (si usas estos editores)
+.idea/
+.vscode/
+
+# Archivos de configuración de pip o Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de compilación o temporales
+*.tmp
+*.temp
