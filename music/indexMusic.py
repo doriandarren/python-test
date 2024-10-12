@@ -6,29 +6,30 @@ import simpleaudio as sa
 
 def obtener_archivos_mp3(ruta_base):
     archivos_mp3 = {}
-    for nota in range(4, 8):  # De C4 a C7
-        nombre_carpeta = f'C{nota}'
+    for octava in range(4, 8):  # De C4 a C7 (puedes cambiarlo a C1 a C7 si es necesario)
+        nombre_carpeta = f'C{octava}'
         ruta_carpeta = os.path.join(ruta_base, nombre_carpeta)
         if os.path.isdir(ruta_carpeta):
             archivos_mp3[nombre_carpeta] = []
-            for i in range(1, 8):  # De Cx-1.mp3 a Cx-7.mp3
-                nombre_archivo = f'{nombre_carpeta}-{i}.mp3'
-                ruta_archivo = os.path.join(ruta_carpeta, nombre_archivo)
-                if os.path.isfile(ruta_archivo):
-                    archivos_mp3[nombre_carpeta].append(ruta_archivo)
+            # Lista de notas (blancas y negras)
+            notas = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+            for nota in notas:
+                nombre_archivo = os.path.join(ruta_carpeta, f'{nota}.mp3')
+                if os.path.isfile(nombre_archivo):
+                    archivos_mp3[nombre_carpeta].append(nombre_archivo)
                 else:
-                    print(f'No se encontró el archivo: {ruta_archivo}')
+                    print(f'No se encontró el archivo: {nombre_archivo}')
         else:
             print(f'No se encontró la carpeta: {ruta_carpeta}')
     return archivos_mp3
 
 # Ruta base donde están las carpetas de las notas
-ruta_base = 'Piano'  # Asegúrate de que esta ruta es correcta
+ruta_base = 'Piano'  # Carpeta principal donde están las octavas
 
 # Obtener los archivos MP3
 archivos_mp3 = obtener_archivos_mp3(ruta_base)
 
-# Lista de notas a reproducir
+# Lista de octavas a reproducir
 notas_a_reproducir = ['C4', 'C5', 'C6', 'C7']
 
 # Crear una lista de todos los archivos de las notas
@@ -38,11 +39,11 @@ for nota in notas_a_reproducir:
     if archivos_nota:
         lista_sonidos.extend(archivos_nota)
     else:
-        print(f'No se encontraron archivos para la nota {nota}')
+        print(f'No se encontraron archivos para la octava {nota}')
 
 # Verificar que hay sonidos disponibles
 if not lista_sonidos:
-    print('No se encontraron archivos de sonido para las notas especificadas.')
+    print('No se encontraron archivos de sonido para las octavas especificadas.')
     exit(1)
 
 # Definir parámetros del compás
@@ -82,7 +83,6 @@ try:
 
             # Esperar la duración del beat
             time.sleep(duracion_beat)
-
 
             # Actualizar el índice de la escala (subir y luego bajar)
             if ascendente:
