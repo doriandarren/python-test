@@ -3,6 +3,9 @@ import time
 from pydub import AudioSegment
 import simpleaudio as sa
 
+
+#Bad bunny 
+
 def obtener_archivos_mp3(ruta_base):
     archivos_mp3 = {}
     for octava in range(4, 8):  # De C4 a C7
@@ -28,12 +31,12 @@ ruta_base = 'Piano'  # Carpeta principal donde están las octavas
 # Obtener los archivos MP3
 archivos_mp3 = obtener_archivos_mp3(ruta_base)
 
-# Progresión armónica I-IV-V-I en C mayor
-progresion_armonica = [
-    ['C', 'E', 'G'],  # C mayor (I)
-    ['F', 'A', 'C'],  # F mayor (IV)
-    ['G', 'B', 'D'],  # G mayor (V)
-    ['C', 'E', 'G'],  # C mayor (I)
+# Progresión armónica de la canción (suponiendo estos acordes)
+progresion_amorfa = [
+    ['F#', 'A', 'C#'],  # F#m (Fa# menor)
+    ['D', 'F#', 'A'],   # D (Re mayor)
+    ['A', 'C#', 'E'],   # A (La mayor)
+    ['E', 'G#', 'B'],   # E (Mi mayor)-----
 ]
 
 # Lista de octavas a reproducir (C4 a C7)
@@ -44,22 +47,16 @@ if not archivos_mp3:
     print('No se encontraron archivos de sonido para las octavas especificadas.')
     exit(1)
 
-# Definir parámetros del compás
-beats_por_compas = 4  # Número de beats por compás
+# Definir el tempo de la canción (BPM)
+bpm = 90  # Puedes ajustar el BPM para que coincida con la canción original
+duracion_beat = 60 / bpm  # Duración de un beat en segundos
 
-# Definir la secuencia de la escala (subir y luego bajar)
-escala_duracion = [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4]
-
-# Inicializar el índice de la escala
-indice_escala = 0
-ascendente = True  # Para controlar la dirección de la escala
-
-# Reproducción continua en compás con progresión armónica
+# Reproducción continua en compás con la progresión de acordes
 try:
     while True:
-        for acorde in progresion_armonica:
-            # Reproducir el acorde en una octava aleatoria
-            octava = 'C4'  # Usaremos la octava C4, pero puedes cambiarlo por otras si prefieres variación
+        for acorde in progresion_amorfa:
+            # Reproducir el acorde en una octava fija o aleatoria
+            octava = 'C4'  # Puedes cambiarlo para variar entre octavas
 
             notas_a_reproducir = []
             for nota in acorde:
@@ -76,25 +73,8 @@ try:
 
                 print(f'Reproduciendo acorde: {acorde} en la octava {octava}')
 
-                # Asignar la duración del beat según la escala
-                duracion_beat = escala_duracion[indice_escala]
-
-                # Esperar la duración del beat
-                time.sleep(duracion_beat)
-
-            # Actualizar el índice de la escala (subir y luego bajar)
-            if ascendente:
-                indice_escala += 1
-                if indice_escala == len(escala_duracion) - 1:  # Si llegamos al final de la subida
-                    ascendente = False
-            else:
-                indice_escala -= 1
-                if indice_escala == 0:  # Si llegamos al final de la bajada
-                    ascendente = True
-
-        print('Progresión armónica completa. Repitiendo...\n')
-        # Pausa opcional entre progresiones
-        time.sleep(1)  # Pausar por 1 segundo entre progresiones
+                # Esperar la duración de un compás (según el BPM)
+                time.sleep(duracion_beat * 4)  # 4 beats por compás (ajusta si es necesario)
 
 except KeyboardInterrupt:
     print('Reproducción interrumpida por el usuario.')
