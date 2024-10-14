@@ -65,7 +65,7 @@ def reproducir_acorde(acorde, duracion):
         time.sleep(duracion)
     else:
         # Elegir una octava aleatoria
-        octava = 'C6'  # Puedes cambiarlo a cualquier octava
+        octava = 'C4'  # Puedes cambiarlo a cualquier octava
 
         notas_a_reproducir = []
         for nota in acorde:
