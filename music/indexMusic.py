@@ -28,24 +28,27 @@ def obtener_archivos_mp3(ruta_base):
 ruta_base = 'Piano'
 archivos_mp3 = obtener_archivos_mp3(ruta_base)
 
-# Mano izquierda
+
+# Mano izquierda (bajos, acordes en octavas graves)
 ritmo_acordes_izquierda = [
-    (0.4, ['A', 'C', 'E'], 'C3'),   # Am en la octava C3 (mano izquierda)
-    (0.3, "Pausa", None),           # Pausa de 0.3 segundos
-    (0.5, ['G', 'B', 'D'], 'C3'),   # G mayor en la octava C3
-    (0.3, "Pausa", None),           # Pausa de 0.3 segundos
-    (0.6, ['F', 'A', 'C'], 'C3'),   # F mayor en la octava C3
+    (0.8, ['C', 'D#', 'G'], 'C3'),   # Cm en la octava C3
+    (1.0, "Pausa", None),            # Pausa de 1.0 segundos
+    (0.8, ['G', 'A#', 'D'], 'C3'),   # Gm en la octava C3
+    (1.0, "Pausa", None),            # Pausa de 1.0 segundos
+    (0.8, ['F', 'G#', 'C'], 'C3'),   # Fm en la octava C3
+    (0.2, ['F', 'G#', 'C'], 'C3'),   # Fm en la octava C3
+    (0.8, ['D#', 'G', 'A#'], 'C3'),  # Eb en la octava C3
 ]
 
-# Mano derecha
+# Mano derecha (melodía, acordes en octavas agudas)
 ritmo_acordes_derecha = [
-    (0.4, ['E', 'G#', 'B'], 'C5'),  # E mayor en la octava C5 (mano derecha)
-    (0.2, "Pausa", None),           # Pausa de 0.2 segundos
-    (0.6, ['A', 'C#', 'E'], 'C5'),  # A mayor en la octava C5
-    (0.1, "Pausa", None),           # Pausa de 0.1 segundos
-    (0.5, ['D', 'F#', 'A'], 'C5'),  # D mayor en la octava C5
+    (0.4, ['C', 'D#', 'G'], 'C5'),   # Cm en la octava C5 (melodía)
+    (0.6, ['D#', 'G', 'A#'], 'C5'),  # Eb en la octava C5
+    (0.8, ['A#', 'D', 'F'], 'C5'),   # Bb en la octava C5
+    (0.4, ['G#', 'C', 'D#'], 'C5'),  # Ab en la octava C5
+    (1.0, "Pausa", None),            # Pausa de 1.0 segundos
+    (0.8, ['C', 'D#', 'G'], 'C5'),   # Cm en la octava C5 (melodía)
 ]
-
 
 
 
