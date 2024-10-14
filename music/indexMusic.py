@@ -1,6 +1,5 @@
 import os
 import time
-import random
 from pydub import AudioSegment
 import simpleaudio as sa
 
@@ -29,19 +28,16 @@ ruta_base = 'Piano'  # Carpeta principal donde están las octavas
 # Obtener los archivos MP3
 archivos_mp3 = obtener_archivos_mp3(ruta_base)
 
-# Array que contiene el ritmo con pausas y acordes
+# Array que contiene el ritmo con notas y octavas específicas
 ritmo_acordes = [
-    (0.1, ['A', 'C', 'E']),   # 0.1 segundos - Am
-    (0.2, "Pausa"),           # 0.2 segundos de pausa
-    (0.3, ['C', 'E', 'G']),   # 0.3 segundos - C
-    (0.3, "Pausa"),           # 0.3 segundos de pausa
-    (1, ['G', 'B', 'D']),     # 1 segundo - G
-    (0.9, "Pausa"),           # 0.9 segundos de pausa
-    (0.4, ['D', 'F', 'A'])    # 0.4 segundos - Dm
+    (0.1, ['A', 'C', 'E'], 'C4'),   # Am en la octava C4
+    (0.2, "Pausa", None),           # Pausa de 0.2 segundos
+    (0.3, ['C', 'E', 'G'], 'C5'),   # C en la octava C5
+    (0.3, "Pausa", None),           # Pausa de 0.3 segundos
+    (1, ['G', 'B', 'D'], 'C6'),     # G en la octava C6
+    (0.9, "Pausa", None),           # Pausa de 0.9 segundos
+    (0.4, ['D', 'F', 'A'], 'C4')    # Dm en la octava C4
 ]
-
-# Lista de octavas a reproducir (C4 a C7)
-octavas_a_reproducir = ['C4', 'C5', 'C6', 'C7']
 
 # Verificar que hay sonidos disponibles
 if not archivos_mp3:
@@ -49,14 +45,15 @@ if not archivos_mp3:
     exit(1)
 
 # Función para reproducir los acordes durante el tiempo especificado
-def reproducir_acorde(acorde, duracion):
+def reproducir_acorde(acorde, duracion, octava):
     if acorde == "Pausa":
         # Si es una pausa, solo esperamos el tiempo de la pausa
         print(f'Pausa de {duracion} segundos')
         time.sleep(duracion)
     else:
-        # Elegir una octava aleatoria
-        octava = random.choice(octavas_a_reproducir)
+        # Usamos la octava que viene en el array
+        if octava is None:
+            octava = 'C4'  # Valor por defecto si no se especifica octava
 
         notas_a_reproducir = []
         for nota in acorde:
@@ -77,8 +74,8 @@ def reproducir_acorde(acorde, duracion):
 # Reproducción continua según el array de ritmo y acordes
 try:
     while True:
-        for duracion, acorde in ritmo_acordes:
-            reproducir_acorde(acorde, duracion)
+        for duracion, acorde, octava in ritmo_acordes:
+            reproducir_acorde(acorde, duracion, octava)
         print('Progresión completa. Repitiendo...\n')
 
 except KeyboardInterrupt:
