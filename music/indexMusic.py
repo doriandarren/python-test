@@ -1,5 +1,6 @@
 import os
 import time
+import random
 from pydub import AudioSegment
 import simpleaudio as sa
 
@@ -39,16 +40,6 @@ ritmo_acordes = [
     (0.4, ['D', 'F', 'A'])    # 0.4 segundos - Dm
 ]
 
-# ritmo_acordes = [
-#     (0.7, ['D', 'F', 'A']),   # 0.7 segundos - Dm
-#     (0.9, ['A', 'C', 'E']),   # 0.9 segundos - Am
-#     (0.8, ['E', 'G#', 'B']),  # 0.8 segundos - E
-#     (0.6, ['F', 'A', 'C']),   # 0.6 segundos - F
-#     (0.5, ['C', 'E', 'G'])    # 0.5 segundos - C
-# ]
-
-
-
 # Lista de octavas a reproducir (C4 a C7)
 octavas_a_reproducir = ['C4', 'C5', 'C6', 'C7']
 
@@ -65,7 +56,7 @@ def reproducir_acorde(acorde, duracion):
         time.sleep(duracion)
     else:
         # Elegir una octava aleatoria
-        octava = 'C4'  # Puedes cambiarlo a cualquier octava
+        octava = random.choice(octavas_a_reproducir)
 
         notas_a_reproducir = []
         for nota in acorde:
