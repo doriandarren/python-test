@@ -3,9 +3,6 @@ import time
 from pydub import AudioSegment
 import simpleaudio as sa
 
-
-#Bad bunny 
-
 def obtener_archivos_mp3(ruta_base):
     archivos_mp3 = {}
     for octava in range(4, 8):  # De C4 a C7
@@ -31,12 +28,12 @@ ruta_base = 'Piano'  # Carpeta principal donde están las octavas
 # Obtener los archivos MP3
 archivos_mp3 = obtener_archivos_mp3(ruta_base)
 
-# Progresión armónica de la canción (suponiendo estos acordes)
-progresion_amorfa = [
-    ['F#', 'A', 'C#'],  # F#m (Fa# menor)
-    ['D', 'F#', 'A'],   # D (Re mayor)
-    ['A', 'C#', 'E'],   # A (La mayor)
-    ['E', 'G#', 'B'],   # E (Mi mayor)-----
+# Acordes de "Just Dance" en formato para piano:
+tus_acordes = [
+    ['A', 'C', 'E'],   # Am
+    ['C', 'E', 'G'],   # C
+    ['G', 'B', 'D'],   # G
+    ['D', 'F', 'A'],   # Dm
 ]
 
 # Lista de octavas a reproducir (C4 a C7)
@@ -48,13 +45,13 @@ if not archivos_mp3:
     exit(1)
 
 # Definir el tempo de la canción (BPM)
-bpm = 90  # Puedes ajustar el BPM para que coincida con la canción original
+bpm = 119  # El BPM de "Just Dance" es aproximadamente 119
 duracion_beat = 60 / bpm  # Duración de un beat en segundos
 
-# Reproducción continua en compás con la progresión de acordes
+# Reproducción continua en compás con tus acordes siguiendo el ritmo 4/4
 try:
     while True:
-        for acorde in progresion_amorfa:
+        for acorde in tus_acordes:
             # Reproducir el acorde en una octava fija o aleatoria
             octava = 'C4'  # Puedes cambiarlo para variar entre octavas
 
@@ -73,8 +70,11 @@ try:
 
                 print(f'Reproduciendo acorde: {acorde} en la octava {octava}')
 
-                # Esperar la duración de un compás (según el BPM)
-                time.sleep(duracion_beat * 4)  # 4 beats por compás (ajusta si es necesario)
+                # Esperar la duración de un compás (según el BPM y compás 4/4)
+                time.sleep(duracion_beat * 4)  # 4 beats por compás
+
+        # Repetir los acordes sin pausa entre ellos
+        print('Progresión completa. Repitiendo...\n')
 
 except KeyboardInterrupt:
     print('Reproducción interrumpida por el usuario.')
