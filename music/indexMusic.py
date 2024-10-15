@@ -1,8 +1,8 @@
 import os
 import time
-import threading
 from pydub import AudioSegment
 import simpleaudio as sa
+from time import time as cronometro  # Usamos 'cronometro' para medir el tiempo
 
 # Función para obtener los archivos WAV
 def obtener_archivos_wav(ruta_base):
@@ -27,36 +27,146 @@ def obtener_archivos_wav(ruta_base):
 ruta_base_wav = 'Piano'  # Asegúrate de que esta es la ruta correcta
 archivos_wav = obtener_archivos_wav(ruta_base_wav)
 
-# Mano izquierda (bajos)
-ritmo_acordes_izquierda = [
-    (0.4, ['C', 'E', 'G'], 'C4'),   # C mayor en la octava C2
-    (0.4, ['G', 'A#', 'D'], 'C4'),  # G menor en la octava C2
-    (0.4, ['F', 'A', 'C'], 'C4'),   # F mayor en la octava C2
-    (0.4, ['A', 'C', 'E'], 'C4'),   # A menor en la octava C2
+# Definir el array de ritmo de acordes, cada entrada puede tener múltiples acordes
+ritmo_acordes = [
+    (0.0, [(['Dm'], 'C4')]),
+    (0.3, [(['F'], 'C4')]),
+    (1.4, [(['Am'], 'C4')]),
+    (0.9, [(['G'], 'C4')]),
+    (2.4, [(['Dm'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.7, [(['Am'], 'C4')]),
+    (2.2, [(['G'], 'C4')]),
+    (0.0, [(['Dm'], 'C4')]),
+    (1.0, [(['F'], 'C4')]),
+    (1.3, [(['Am'], 'C4')]),
+    (2.4, [(['G'], 'C4')]),
+    (0.4, [(['Dm'], 'C4')]),
+    (1.7, [(['F'], 'C4')]),
+    (2.8, [(['Am'], 'C4')]),
+    (4.0, [(['G'], 'C4')]),
+    (1.6, [(['Dm'], 'C4')]),
+    (2.2, [(['F'], 'C4')]),
+    (0.0, [(['C'], 'C4')]),
+    (3.0, [(['Dm'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.0, [(['Am'], 'C4')]),
+    (4.0, [(['Dm'], 'C4')]),
+    (4.7, [(['F'], 'C4')]),
+    (1.3, [(['Am'], 'C4')]),
+    (2.4, [(['G'], 'C4')]),
+    (4.1, [(['Dm'], 'C4')]),
+    (0.3, [(['F'], 'C4')]),
+    (1.4, [(['Am'], 'C4')]),
+    (2.1, [(['G'], 'C4')]),
+    (1.6, [(['Dm'], 'C4')]),
+    (2.2, [(['F'], 'C4')]),
+    (0.0, [(['C'], 'C4')]),
+    (3.0, [(['Dm'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.0, [(['Am'], 'C4')]),
+    (4.0, [(['Dm'], 'C4')]),
+    (4.7, [(['F'], 'C4')]),
+    (1.3, [(['Am'], 'C4')]),
+    (2.4, [(['G'], 'C4')]),
+    (4.1, [(['Dm'], 'C4')]),
+    (0.3, [(['F'], 'C4')]),
+    (1.4, [(['Am'], 'C4')]),
+    (2.2, [(['G'], 'C4')]),
+    (0.0, [(['G'], 'C4')]),
+    (1.7, [(['F'], 'C4')]),
+    (0.6, [(['G'], 'C4')]),
+    (0.0, [(['C'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.7, [(['C'], 'C4')]),
+    (0.4, [(['Dm'], 'C4')]),
+    (1.3, [(['F'], 'C4')]),
+    (0.9, [(['Am'], 'C4')]),
+    (1.9, [(['G'], 'C4')]),
+    (0.5, [(['Dm'], 'C4')]),
+    (2.6, [(['F'], 'C4')]),
+    (0.3, [(['Am'], 'C4')]),
+    (1.3, [(['G'], 'C4')]),
+    (1.3, [(['Dm'], 'C4')]),
+    (0.0, [(['C'], 'C4')]),
+    (0.6, [(['Dm'], 'C4')]),
+    (1.3, [(['Em'], 'C4')]),
+    (3.3, [(['F'], 'C4')]),
+    (0.0, [(['Am'], 'C4')]),
+    (0.5, [(['Dm'], 'C4')]),
+    (2.0, [(['F'], 'C4')]),
+    (3.8, [(['Am'], 'C4')]),
+    (0.9, [(['G'], 'C4')]),
+    (0.0, [(['Dm'], 'C4')]),
+    (1.7, [(['F'], 'C4')]),
+    (0.3, [(['Am'], 'C4')]),
+    (2.7, [(['Em'], 'C4')]),
+    (1.6, [(['Dm'], 'C4')]),
+    (2.2, [(['F'], 'C4')]),
+    (0.0, [(['C'], 'C4')]),
+    (3.0, [(['Dm'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.0, [(['Am'], 'C4')]),
+    (4.0, [(['Dm'], 'C4')]),
+    (4.7, [(['F'], 'C4')]),
+    (1.3, [(['Am'], 'C4')]),
+    (2.4, [(['G'], 'C4')]),
+    (4.1, [(['Dm'], 'C4')]),
+    (0.3, [(['F'], 'C4')]),
+    (1.4, [(['Am'], 'C4')]),
+    (2.1, [(['G'], 'C4')]),
+    (1.6, [(['Dm'], 'C4')]),
+    (2.2, [(['F'], 'C4')]),
+    (0.0, [(['C'], 'C4')]),
+    (3.0, [(['Dm'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.0, [(['Am'], 'C4')]),
+    (4.0, [(['Dm'], 'C4')]),
+    (4.7, [(['F'], 'C4')]),
+    (1.3, [(['Am'], 'C4')]),
+    (2.4, [(['G'], 'C4')]),
+    (4.1, [(['Dm'], 'C4')]),
+    (0.3, [(['F'], 'C4')]),
+    (1.4, [(['Am'], 'C4')]),
+    (2.2, [(['G'], 'C4')]),
+    (1.1, [(['Dm'], 'C4')]),
+    (3.9, [(['F'], 'C4')]),
+    (1.1, [(['Am'], 'C4')]),
+    (4.2, [(['G'], 'C4')]),
+    (0.7, [(['Dm'], 'C4')]),
+    (3.5, [(['F'], 'C4')]),
+    (2.5, [(['Am'], 'C4')]),
+    (4.6, [(['G'], 'C4')]),
+    (0.8, [(['Dm'], 'C4')]),
+    (1.7, [(['F'], 'C4')]),
+    (0.0, [(['Am'], 'C4')]),
+    (1.2, [(['G'], 'C4')]),
+    (0.0, [(['Dm'], 'C4')]),
+    (2.1, [(['F'], 'C4')]),
+    (0.0, [(['Am'], 'C4')]),
+    (1.5, [(['G'], 'C4')]),
+    (0.7, [(['G'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (0.7, [(['Am'], 'C4')]),
+    (0.2, [(['G'], 'C4')]),
+    (0.2, [(['Dm'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.1, [(['Am'], 'C4')]),
+    (0.2, [(['G'], 'C4')]),
+    (0.0, [(['F'], 'C4')]),
+    (1.5, [(['C'], 'C4')]),
 ]
 
-# Mano derecha (melodía)
-ritmo_acordes_derecha = [
-    (0.4, ['C', 'E', 'G'], 'C6'),   # C mayor en la octava C4
-    (0.4, ['G', 'A#', 'D'], 'C6'),  # G menor en la octava C4
-    (0.4, ['F', 'A', 'C'], 'C5'),   # F mayor en la octava C4
-    (0.4, ['A', 'C', 'E'], 'C6'),   # A menor en la octava C4
-]
+# Función para reproducir un conjunto de acordes (múltiples acordes) usando pydub y simpleaudio
+def reproducir_acordes_conjuntos(acordes, inicio):
+    # Cronometrar y mostrar el tiempo actual de reproducción
+    tiempo_actual = cronometro() - inicio
+    print(f'Tiempo: {tiempo_actual:.2f}s - Reproduciendo {len(acordes)} acorde(s)')
 
-# Función para reproducir un acorde o una pausa usando pydub y simpleaudio
-def reproducir_acorde(acorde, duracion, octava, mano):
-    if acorde == "Pausa":
-        print(f'{mano} - Pausa de {duracion} segundos')
-        time.sleep(duracion)
-    else:
-        # Verificar si la octava está presente en el diccionario
-        if octava not in archivos_wav:
-            print(f"Error: La octava '{octava}' no se encuentra en el diccionario archivos_wav. Mano: {mano}")
-            return  # Salimos de la función si la octava no existe
-
-        # Reproducir cada nota del acorde en paralelo
-        sonidos = []
-        print(f'{mano} - Reproduciendo acorde: {acorde} en la octava {octava}')
+    sonidos = []
+    # Reproducir todos los acordes simultáneamente
+    for acorde, octava in acordes:
+        print(f'Acorde: {acorde} en la octava {octava}')
         for nota in acorde:
             if nota in archivos_wav[octava]:
                 # Cargar el archivo WAV
@@ -64,34 +174,17 @@ def reproducir_acorde(acorde, duracion, octava, mano):
                 sonido = sa.play_buffer(audio.raw_data, num_channels=audio.channels, bytes_per_sample=audio.sample_width, sample_rate=audio.frame_rate)
                 sonidos.append(sonido)
 
-        # Esperar por la duración especificada, pero dejar que el sonido se siga reproduciendo
-        time.sleep(duracion)
+# Función para manejar la línea de tiempo que siempre se ejecute
+def linea_de_tiempo(ritmo_acordes):
+    inicio = cronometro()  # Iniciar el cronómetro
+    while True:  # Bucle infinito
+        for duracion, acordes in ritmo_acordes:
+            reproducir_acordes_conjuntos(acordes, inicio)
+            time.sleep(duracion)  # Esperar el tiempo indicado antes de reproducir el siguiente conjunto de acordes
 
-# Función para reproducir los acordes de ambas manos simultáneamente
-def reproducir_dos_manos(ritmo_izquierda, ritmo_derecha):
-    for i in range(min(len(ritmo_izquierda), len(ritmo_derecha))):
-        duracion_izq, acorde_izq, octava_izq = ritmo_izquierda[i]
-        duracion_der, acorde_der, octava_der = ritmo_derecha[i]
-
-        # Reproducir ambos acordes simultáneamente usando hilos
-        hilo_izq = threading.Thread(target=reproducir_acorde, args=(acorde_izq, duracion_izq, octava_izq, "Mano Izquierda"))
-        hilo_der = threading.Thread(target=reproducir_acorde, args=(acorde_der, duracion_der, octava_der, "Mano Derecha"))
-        
-        # Iniciar ambos hilos
-        hilo_izq.start()
-        hilo_der.start()
-        
-        # Esperar a que ambos hilos terminen
-        hilo_izq.join()
-        hilo_der.join()
-
-        # No hacer sleep demasiado tiempo; esto es solo para avanzar al siguiente acorde
-        time.sleep(0.05)  # Duración mínima entre acordes, ajustable
-
-# Iniciar las dos manos en paralelo
+# Iniciar la línea de tiempo
 try:
-    while True:
-        reproducir_dos_manos(ritmo_acordes_izquierda, ritmo_acordes_derecha)
+    linea_de_tiempo(ritmo_acordes)
 
 except KeyboardInterrupt:
     print('Reproducción interrumpida por el usuario.')
