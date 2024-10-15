@@ -8,7 +8,7 @@ pygame.mixer.init()
 # Función para obtener los archivos MP3
 def obtener_archivos_mp3(ruta_base):
     archivos_mp3 = {}
-    for octava in range(1, 8):  # De C3 a C7 para cubrir más octavas
+    for octava in range(1, 8):  # De C1 a C7 para cubrir más octavas
         nombre_carpeta = f'C{octava}'
         ruta_carpeta = os.path.join(ruta_base, nombre_carpeta)
         if os.path.isdir(ruta_carpeta):
@@ -31,18 +31,18 @@ archivos_mp3 = obtener_archivos_mp3(ruta_base)
 
 # Mano izquierda (bajos, acordes en octavas graves)
 ritmo_acordes_izquierda = [
-    (1.2, ['C', 'E', 'G'], 'C2'),   # C mayor en la octava C2
-    (1.2, ['G', 'B', 'D'], 'C2'),  # G menor en la octava C2
-    (1.2, ['F', 'A', 'C'], 'C2'),   # F mayor en la octava C2
-    (1.2, ['A', 'C', 'E'], 'C2'),   # A menor en la octava C2
+    (0.9, ['C', 'E', 'G'], 'C4'),   # C mayor en la octava C2
+    (1.2, ['G', 'B', 'D'], 'C4'),  # G menor en la octava C2
+    (0.9, ['F', 'A', 'C'], 'C4'),   # F mayor en la octava C2
+    (1.2, ['A', 'C', 'E'], 'C4'),   # A menor en la octava C2
 ]
 
 # Mano derecha (melodía, acordes en octavas agudas)
 ritmo_acordes_derecha = [
-    (1.2, ['C', 'E', 'G'], 'C4'),   # C mayor en la octava C4
-    (1.2, ['G', 'B', 'D'], 'C4'),  # G menor en la octava C4
-    (1.2, ['F', 'A', 'C'], 'C4'),   # F mayor en la octava C4
-    (1.2, ['A', 'C', 'E'], 'C4'),   # A menor en la octava C4
+    (0.9, ['C', 'E', 'G'], 'C5'),   # C mayor en la octava C4
+    (1.2, ['G', 'B', 'D'], 'C6'),  # G menor en la octava C4
+    (0.9, ['F', 'A', 'C'], 'C5'),   # F mayor en la octava C4
+    (1.2, ['A', 'C', 'E'], 'C6'),   # A menor en la octava C4
 ]
 
 
